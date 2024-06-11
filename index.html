@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نص متكرر</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: left;
+            white-space: pre-wrap; /* للحفاظ على تنسيق النص عند عرضه */
+        }
+        .copy-btn {
+            margin-top: 10px;
+            background-color: #008CBA;
+        }
+        .copy-btn:hover {
+            background-color: #007B9E;
+        }
+    </style>
+</head>
+<body>
+
+<h1>إدخال النص المتكرر</h1>
+<div>
+    <label for="inputText">أدخل النص الذي تريد تكراره:</label>
+    <input type="text" id="inputText">
+</div>
+<div>
+    <label for="startNum">أدخل الرقم الذي تريد البدء منه:</label>
+    <input type="number" id="startNum">
+</div>
+<div>
+    <label for="endNum">أدخل الرقم الذي تريد الانتهاء عنده:</label>
+    <input type="number" id="endNum">
+</div>
+<div>
+    <button onclick="repeatText()">تكرار النص</button>
+</div>
+
+<div class="output" id="output"></div>
+<button class="copy-btn" onclick="copyOutput()">نسخ المخرجات</button>
+
+<script>
+function repeatText() {
+    const inputText = document.getElementById('inputText').value;
+    const startNum = parseInt(document.getElementById('startNum').value);
+    const endNum = parseInt(document.getElementById('endNum').value);
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+
+    if (isNaN(startNum) || isNaN(endNum) || startNum > endNum) {
+        outputDiv.innerHTML = '<p>يرجى إدخال أرقام صحيحة ونطاق صحيح.</p>';
+        return;
+    }
+
+    let outputText = '';
+    for (let i = startNum; i <= endNum; i++) {
+        outputText += `${i} - ${inputText}\n`;
+    }
+    outputDiv.textContent = outputText.trim(); // إزالة الفراغات الزائدة
+}
+
+function copyOutput() {
+    const outputDiv = document.getElementById('output');
+    const outputText = outputDiv.textContent;
+    const textArea = document.createElement('textarea');
+    textArea.value = outputText;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    alert('تم نسخ المخرجات!');
+}
+</script>
+
+</body>
+</html>
+
